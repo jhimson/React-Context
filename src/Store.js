@@ -1,4 +1,4 @@
-import React,{ useReducer} from 'react';
+import React from 'react';
 
 // ? Custom React Contexts Providers
 import CategoriesCTXProvider from './contexts/CategoriesCTX'

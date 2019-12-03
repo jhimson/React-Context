@@ -5,7 +5,9 @@ const Main = () => {
   const [newCategory, setNewCategory] = useState("");
   const [newItem, setNewItem] = useState("");
 
-  const { categories, addCategory } = useContext(CategoriesCTX);
+  const { categories, addCategory, fetchCategories } = useContext(
+    CategoriesCTX
+  );
 
   const { items, addItem } = useContext(ItemsCTX);
 
@@ -42,6 +44,13 @@ const Main = () => {
         }}
       >
         Add Item
+      </button>
+      <button
+        onClick={() => {
+          fetchCategories();
+        }}
+      >
+        Fetch Categories
       </button>
     </div>
   );

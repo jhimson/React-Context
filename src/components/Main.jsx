@@ -5,9 +5,10 @@ const Main = () => {
   const [newCategory, setNewCategory] = useState("");
   const [newItem, setNewItem] = useState("");
 
-  const { categoriesState, categoriesAction } = useContext(CategoriesCTX);
+  const { categories, addCategory } = useContext(CategoriesCTX);
 
-  const { itemsState, itemsAction } = useContext(ItemsCTX);
+  const { items, addItem } = useContext(ItemsCTX);
+
   return (
     <div>
       <input
@@ -24,11 +25,11 @@ const Main = () => {
         placeholder={`Enter Item`}
       />
       <br />
-      <h1>{JSON.stringify(categoriesState.categories)}</h1>
-      <h1>{JSON.stringify(itemsState.items)}</h1>
+      <h1>{JSON.stringify(categories)}</h1>
+      <h1>{JSON.stringify(items)}</h1>
       <button
         onClick={() => {
-          categoriesAction({ type: "ADD_CATEGORY", payload: newCategory });
+          addCategory(newCategory);
           setNewCategory("");
         }}
       >
@@ -36,7 +37,7 @@ const Main = () => {
       </button>
       <button
         onClick={() => {
-          itemsAction({ type: "ADD_NEWITEM", payload: newItem });
+          addItem(newItem);
           setNewItem("");
         }}
       >

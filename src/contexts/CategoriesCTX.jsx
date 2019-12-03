@@ -10,7 +10,7 @@ export const CategoriesCTX = React.createContext({});
 
 const CategoriesCTXProvider = props => {
   const initialState = {
-    categories: ["jim", "shang"],
+    categories: [{ category_id: "test123", name: "nametest12" }],
     categoriesError: ""
   };
 
@@ -20,8 +20,22 @@ const CategoriesCTXProvider = props => {
   const { categories, categoriesError } = state;
 
   // ! Add new category action
-  const addCategory = category => {
-    dispatch({ type: types.ADD_CATEGORY, payload: category });
+  const addCategory = async category => {
+    try {
+      const res = await Axios.post(
+        `https://js-inventoryapp.com/categories`,
+        { category_id: category.category_id, name: category.name },
+        {
+          header: { "Content-Type": "application/json" }
+        }
+      );
+
+      console.log(res);
+
+      dispatch({ type: types.ADD_CATEGORY, payload: category });
+    } catch (err) {
+      dispatch({ type: types.CATEGORIES_ERROR, payload: err.responose.msg });
+    }
   };
 
   // ! Fetch categories from API
@@ -31,7 +45,7 @@ const CategoriesCTXProvider = props => {
 
       dispatch({ type: types.GET_CATEGORIES, payload: res.data.data });
     } catch (err) {
-      dispatch({ type: types.CATEGORIES_ERROR, payload: err });
+      dispatch({ type: types.CATEGORIES_ERROR, payload: err.response.msg });
     }
   };
 
